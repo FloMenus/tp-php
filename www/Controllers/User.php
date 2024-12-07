@@ -8,7 +8,7 @@ class User
 {
     public function register(): void
     {
-        echo "Page d'inscription";
+        $view = new View("User/register.php", "front.php");
     }
 
     public function login(): void
