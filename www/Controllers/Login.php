@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-class Registration {
+class Login {
     private $formVerification;
     private $user;
 
@@ -11,9 +11,9 @@ class Registration {
         $this->user = $user;
     }
 
-    public function handleRegistration($form) {
+    public function handleLogin($form) {
         // Validate form data
-        $errors = $this->formVerification->checkRegistrationForm($form);
+        $errors = $this->formVerification->checkLoginForm($form);
 
         if (!empty($errors)) {
             return $errors;
@@ -22,16 +22,23 @@ class Registration {
         // Hash the password
         $form['password'] = password_hash($form['password'], PASSWORD_BCRYPT);
 
-        // Insert user into the database
+        // Get user from the database
         try {
-            $this->user->createUser($form);
+            $userFromDb = $this->user->getUserByEmail($form['email']);
+            /* var_dump($userFromDb); */
+
+            // Check if the user exists and if the password is correct
+            if (!$userFromDb || !password_verify($form['password'], $userFromDb['password'])) {
+                $errors['db'] = "Email ou mot de passe incorrect, vérifiez vos informations.";
+                return $errors;
+            }
         } catch (PDOException $e) {
             $errors['db'] = "Erreur interne: " . $e->getMessage();
             return $errors;
         }
 
         // Redirect to login page
-        header("Location: login");
+        header("Location: /");
         exit;
     }
 }

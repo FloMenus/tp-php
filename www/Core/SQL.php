@@ -13,19 +13,20 @@ class SQL
             die("Erreur SQL ".$e->getMessage());
         }
     }
-
+    
     public function getPDO(): \PDO
     {
         return $this->pdo;
+        // $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
-    public function getOneById(string $table, int $id): array
+  /*   public function getOneById(string $table, int $id): array
     {
         $queryPrepared = $this->pdo->prepare("SELECT * FROM ".$table." WHERE id= :id");
         $queryPrepared->execute([
             "id"=>$id
         ]);
         return $queryPrepared->fetch();
-    }
+    } */
 
 }

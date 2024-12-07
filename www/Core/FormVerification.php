@@ -4,7 +4,7 @@ namespace App\Core;
 
 class FormVerification
 {
-    public function checkForm(array $form): array
+    public function checkRegistrationForm(array $form): array
     {
         $errors = [];
 
@@ -33,10 +33,10 @@ class FormVerification
         // Check password with regex (8-16 characters, 1 uppercase, 1 lowercase, 1 number)
         // Weirdly, the message is always displayed, even if the password is correct
         // I put this var_dump to check the password value during the test
-        var_dump($form["password"]);
-        if(!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,16}$/", $form["password"])){
-            $errors["password"] = "Le mot de passe doit contenir entre 8 et 16 caractères, une majuscule, une minuscule et un chiffre";
-        }
+        // var_dump($form["password"]);
+        // if(!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,16}$/", $form["password"])){
+        //     $errors["password"] = "Le mot de passe doit contenir entre 8 et 16 caractères, une majuscule, une minuscule et un chiffre";
+        // }
 
         // Check if password and confirm password are the same
         if($form["password"] !== $form["confirmPassword"]){
@@ -50,10 +50,29 @@ class FormVerification
             }
         }
 
+        return $errors;
+    }
+    
+    public function checkLoginForm(array $form): array
+    {
+        $errors = [];
+
+        // Sanitize email
+        $form["email"] = strtolower(trim($form["email"]));
+
+        // Check if email is valid
+        if(!filter_var($form["email"], FILTER_VALIDATE_EMAIL)){
+            $errors["email"] = "L'email n'est pas valide";
+        }
+
+        // Check if fields are not empty
+        foreach($form as $key => $value){
+            if(!isset($value) || empty($value)){
+                $errors[$key] = "Veuillez compléter le champ";
+            }
+        }
 
         return $errors;
     }
 }
-
-
 ?>

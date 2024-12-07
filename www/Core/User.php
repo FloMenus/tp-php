@@ -34,4 +34,17 @@ private $pdo;
         ]);
     }
 
+    public function getUserByEmail($email):array {
+        $action = $this->pdo->prepare("
+            SELECT * FROM users WHERE email = :email
+        ");
+
+        $action->execute([
+            ':email' => $email
+        ]);
+
+        $result = $action->fetch();
+        // if no user found, return an empty array
+        return $result ? $result : [];
+    }
 }
