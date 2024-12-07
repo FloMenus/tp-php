@@ -1,6 +1,9 @@
 <?php
 
 use App\Core\FormVerification;
+use App\Controllers\Registration;
+use App\Core\User;
+use App\Core\SQL;
 
 $errors = [];
 $form = [];
@@ -14,16 +17,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         "confirmPassword" => $_POST["confirmPassword"]
     ];
 
+    $sql = new SQL();
+    $pdo = $sql->getPDO();
+    $user = new User($pdo);
     $formVerification = new FormVerification();
-    $errors = $formVerification->checkForm($form);
+    $registrationController = new Registration($formVerification, $user);
 
-    if (!empty($errors)) {
-        // Hash password
-        // SQL request to insert user
-        // Redirect to login page
-
-        //Feel free to split theses steps in different classes :D
-    } 
+    $errors = $registrationController->handleRegistration($form);
 }
 ?>
 

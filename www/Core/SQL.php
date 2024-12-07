@@ -14,6 +14,11 @@ class SQL
         }
     }
 
+    public function getPDO(): \PDO
+    {
+        return $this->pdo;
+    }
+
     public function getOneById(string $table, int $id): array
     {
         $queryPrepared = $this->pdo->prepare("SELECT * FROM ".$table." WHERE id= :id");
