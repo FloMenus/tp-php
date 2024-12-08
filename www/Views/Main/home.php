@@ -1,1 +1,1 @@
-Welcome <?= $pseudo;?>
+<br>Welcome <?= $connectedUser;?>

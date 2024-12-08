@@ -13,14 +13,16 @@ class Login {
 
     public function handleLogin($form) {
         // Validate form data
+
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+
         $errors = $this->formVerification->checkLoginForm($form);
 
         if (!empty($errors)) {
             return $errors;
         }
-
-        // Hash the password
-        $form['password'] = password_hash($form['password'], PASSWORD_BCRYPT);
 
         // Get user from the database
         try {
@@ -36,6 +38,11 @@ class Login {
             $errors['db'] = "Erreur interne: " . $e->getMessage();
             return $errors;
         }
+
+        $_SESSION['user'] = [
+            'firstName' => $userFromDb['firstName'],
+            'lastName' => $userFromDb['lastName']
+        ];
 
         // Redirect to login page
         header("Location: /");
