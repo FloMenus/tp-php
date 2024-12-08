@@ -3,6 +3,7 @@ namespace App\Controllers;
 
 use App\Core\User as U;
 use App\Core\View;
+use App\Controllers\Logout;
 
 class User
 {
@@ -20,9 +21,8 @@ class User
 
     public function logout(): void
     {
-        $user = new U;
-        $user->logout();
-        //header("Location: /");
+        $logoutHandler = new Logout();
+        $logoutHandler->handleLogout();
     }
 
 
