@@ -1,0 +1,28 @@
+* {
+  font-family: Verdana, sans-serif;
+}
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  background-color: blue;
+  justify-content: center;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 16px;
+  border-radius: 8px;
+  a {
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+  }
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+}
