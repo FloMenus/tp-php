@@ -6,16 +6,22 @@
   display: flex;
   flex-direction: row;
   gap: 16px;
-  background-color: blue;
+  background-color: #0000c7;
   justify-content: center;
   max-width: 500px;
-  margin: 0 auto;
+  margin-left: 8px;
   padding: 16px;
   border-radius: 8px;
   a {
     font-size: 18px;
     font-weight: 600;
     color: white;
+    padding: 8px;
+    border-radius: 8px;
+    transition: 0.3s ease-in-out;
+    &:hover {
+      background-color: #000077;
+    }
   }
 }
 

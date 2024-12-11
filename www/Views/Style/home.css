@@ -1,0 +1,14 @@
+.disconnect-btn {
+  max-width: 150px;
+  padding: 8px 16px;
+  margin-top: 22px;
+  border: 1px solid #ff4f4f;
+  border-radius: 22px;
+  background-color: white;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+  &:hover {
+    background-color: #ff4f4f;
+    color: white;
+  }
+}

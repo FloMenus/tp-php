@@ -16,7 +16,7 @@ class Main
 
         $connectedUser = isset($_SESSION['user'])
             ? "{$_SESSION['user']['firstName']} {$_SESSION['user']['lastName']}"
-            : "Guest";
+            : "";
 
         $view = new View("Main/home.php");
         $view->addData("connectedUser", $connectedUser);
